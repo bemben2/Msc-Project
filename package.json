@@ -1,0 +1,25 @@
+{
+  "name": "msqonline",
+  "version": "1.0.0",
+  "description": "MSQ Online tests portal",
+  "main": "index.js",
+  "scripts": {
+    "start": "node-dev index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bemben2/Msc-Project.git"
+  },
+  "author": "Michal Smigiel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bemben2/Msc-Project/issues"
+  },
+  "homepage": "https://github.com/bemben2/Msc-Project#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  }
+}
