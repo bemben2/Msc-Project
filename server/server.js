@@ -5,6 +5,9 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var api = require('./api/api');
 
+// var Sequelize = require('sequelize');
+// var sequelize = require('./config/db_connection').sequelize;
+
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());

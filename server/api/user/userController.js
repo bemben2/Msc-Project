@@ -1,4 +1,6 @@
 
+var User = require('./userModel');
+
 exports.params = function (req, res, next, id) {
     // find user if exist and atach it to 
     var user = {
