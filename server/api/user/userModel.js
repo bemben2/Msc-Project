@@ -3,10 +3,19 @@ var Sequelize = require('sequelize');
 var sequelize = require('../../config/db_connection').sequelize;
 
 const User = sequelize.define('user', {
-    firstName: {
+    name: {
       type: Sequelize.STRING
     },
-    lastName: {
+    email: {
+      type: Sequelize.STRING
+    },
+    password: {
+      type: Sequelize.STRING
+    },
+    role: {
+      type: Sequelize.STRING
+    },
+    password: {
       type: Sequelize.STRING
     }
 
@@ -16,8 +25,10 @@ const User = sequelize.define('user', {
 User.sync({force: true}).then(() => {
     // Table created
     return User.create({
-      firstName: 'John',
-      lastName: 'Hancock'
+      name: 'Michal Smigiel',
+      email: 'ms@gmal.com',
+      role: "creator",
+      password: "123"
     });
   });
 module.exports;
