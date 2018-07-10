@@ -1,6 +1,5 @@
-var config = require('./config');
 var Sequelize = require('sequelize');
-
+var Op = Sequelize.Op;
 var sequelize = new Sequelize(
     'mscproject',
     'root',
@@ -8,6 +7,15 @@ var sequelize = new Sequelize(
     {
         host: 'localhost',
         dialect: 'mysql',
+        operatorsAliases: {
+          $and: Op.and,
+          $or: Op.or,
+          $eq: Op.eq,
+          $gt: Op.gt,
+          $lt: Op.lt,
+          $lte: Op.lte,
+          $like: Op.like
+        },
         define: {
             timestamps: false
           }
@@ -15,15 +23,7 @@ var sequelize = new Sequelize(
     
 );
 
-//DB connection and connection test
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+
 
 module.exports = {
     Sequelize: sequelize,
