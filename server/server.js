@@ -9,14 +9,14 @@ var Sequelize = require('sequelize');
 var sequelize = require('./config/db_connection').sequelize;
 
 //DB connection and connection test
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({extended: true}));

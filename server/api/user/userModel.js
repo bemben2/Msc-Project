@@ -21,7 +21,9 @@ const User = sequelize.define('user', {
   });
 
   // force: true will drop the table if it already exists
-// User.sync({force: true}).then(() => {
+// User.sync(
+//  // {force: true}
+// ).then(() => {
 //     // Table created
 //     return User.create({
 //       name: 'Michal Smigiel',
@@ -32,4 +34,4 @@ const User = sequelize.define('user', {
 //   });
 
 
-module.exports;
+module.exports = User;
