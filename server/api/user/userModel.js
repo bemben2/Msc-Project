@@ -18,7 +18,6 @@ const User = sequelize.define('user', {
     password: {
       type: Sequelize.STRING
     }
-
   });
 
   // force: true will drop the table if it already exists
