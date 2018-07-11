@@ -8,19 +8,20 @@ var sequelize = new Sequelize(
         host: 'localhost',
         dialect: 'mysql',
         operatorsAliases: {
-          $and: Op.and,
-          $or: Op.or,
-          $eq: Op.eq,
-          $gt: Op.gt,
-          $lt: Op.lt,
-          $lte: Op.lte,
-          $like: Op.like
+            $and: Op.and,
+            $or: Op.or,
+            $eq: Op.eq,
+            $gt: Op.gt,
+            $lt: Op.lt,
+            $lte: Op.lte,
+            $like: Op.like
         },
         define: {
             timestamps: false
-          }
+        },
+        //logging: false
     }
-    
+
 );
 
 
