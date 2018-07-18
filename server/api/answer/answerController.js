@@ -35,7 +35,7 @@ exports.delete = function (req, res, next) {
         
     }).then(() => {
        // console.log(no);
-        res.status(204).json({ message: 'Successfully deleted' });
+        res.status(204).json();
     }).catch((err) => {
         next(err);
     });
