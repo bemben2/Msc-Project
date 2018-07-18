@@ -27,6 +27,4 @@ var Question = sequelize.define('question', {
 // });
 
 
-module.exports = {
-    Question: Question
-};
+module.exports = Question;

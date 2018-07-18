@@ -4,9 +4,11 @@ var sequelize = require('../../config/db_connection').sequelize;
 var Quiz = require('./quizModel');
 var User = require('../user/userModel');
 var _ = require('lodash');
+
 exports.userIdparams = function (req, res, next, id) {
     next();
 };
+
 exports.params = function (req, res, next, id) {
     Quiz.findById(id).then(quiz => {
         if (quiz) {

@@ -1,7 +1,7 @@
 
 var Sequelize = require('sequelize');
 var sequelize = require('../../config/db_connection').sequelize;
-var Answer = require('./answerModel').Answer;
+var Answer = require('./answerModel');
 
 exports.params = function (req, res, next, id) {
     Answer.findById(id).then(answer => {
@@ -27,8 +27,26 @@ exports.get = function (req, res, next) {
 
 };
 
+exports.delete = function (req, res, next) {
+    Answer.findById(req.params.id).then((answer) => {
+        if (answer) {
+            return answer.destroy();
+        } 
+        
+    }).then(() => {
+       // console.log(no);
+        res.status(204).json({ message: 'Successfully deleted' });
+    }).catch((err) => {
+        next(err);
+    });
+};
+
 exports.post = function (req, res, next) {
-    res.json({ 'quiz': 'POST respond' });
+    Answer.create(req.body).then((questions) => {
+        res.json(questions);
+    }).catch((err) => {
+        next(err);
+    });
 };
 
 exports.getOne = function (req, res, next) {
