@@ -10,6 +10,9 @@ router.route('/')
   .get(controller.get)
   .post(controller.post);
 
+router.route('/question/:questionId')
+  .get(controller.getForQuestion);
+
 router.route('/:id')
   .get(controller.getOne)
   .put(controller.put)

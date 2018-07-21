@@ -53,6 +53,8 @@ exports.getForQuiz = function (req, res, next) {
         }).then((questions) => {
             res.set('Content-Type', 'application/json');
             res.json(questions);
+        }).catch((err) => {
+            next(err);
         });
     });
 }
