@@ -35,11 +35,16 @@ exports.question4 = {
     quizId: 2
 }
 
-exports.user = {
-    name: 'Michal Smigielasdf',
-    email: 'ms@gmal.com',
-    role: "quiz master",
+exports.user1 = {
+    name: 'Michal Smigiel',
+    email: 'ms@gmail.com',
+    master: true,
     password: "123"
+};
+exports.user2 = {
+    name: 'Tom Jinx',
+    email: 'tj@gmail.com',
+    master: false,
 };
 
 exports.quiz1 = {

@@ -28,9 +28,9 @@ app.use('/api', api);
 
 //errors handling
 app.use(function (err, req, res, next) {
-    console.log('ERROR message: ', err.message);
-    console.log('ERROR stack: ', err.stack);
-    res.status(500).send(err.stack);
+    console.log('ERROR message from SERVER.JS: ', err.message);
+   console.log('ERROR stack from SERVER.JS: ', err.stack);
+    res.status(500).json(err.message);
 });
 
 
