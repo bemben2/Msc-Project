@@ -1,17 +1,81 @@
+exports.resultsToCheck = {
+    "userId": 1,
+    "quizId": 1,
+    "answers":[
+        {"answerId": 1, "selected": true},
+        {"answerId": 2, "selected": false},
+        {"answerId": 3, "selected": false},
+        {"answerId": 4, "selected": false},
+        {"answerId": 5, "selected": true},
+        {"answerId": 6, "selected": false},
+        {"answerId": 7, "selected": true},
+        {"answerId": 8, "selected": false},
+        {"answerId": 9, "selected": false},
+        {"answerId": 10, "selected": true},
+        {"answerId": 11, "selected": true},
+        {"answerId": 12, "selected": false}
+    ]
+}
+
 exports.answer1 = {
-    content: "Answer no 1",
+    content: "Answer no 1 1",
     result: true,
     questionId: 1
 }
 exports.answer2 = {
-    content: "Answer no 2",
-    result: true,
+    content: "Answer no 2 1",
+    result: false,
     questionId: 1
 }
 exports.answer3 = {
-    content: "Answer no 3",
+    content: "Answer no 3 1",
     result: false,
     questionId: 1
+}
+exports.answer4 = {
+    content: "Answer no 1 2",
+    result: false,
+    questionId: 2
+}
+exports.answer5 = {
+    content: "Answer no 2 2",
+    result: true,
+    questionId: 2
+}
+exports.answer6 = {
+    content: "Answer no 2 3",
+    result: false,
+    questionId: 2
+}
+exports.answer7 = {
+    content: "Answer no 1 3",
+    result: false,
+    questionId: 3
+}
+exports.answer8 = {
+    content: "Answer no 2 3",
+    result: false,
+    questionId: 3
+}
+exports.answer9 = {
+    content: "Answer no 3 3",
+    result: true,
+    questionId: 3
+}
+exports.answer10 = {
+    content: "Answer no 1 4",
+    result: true,
+    questionId: 4
+}
+exports.answer11 = {
+    content: "Answer no 2 4",
+    result: false,
+    questionId: 4
+}
+exports.answer12 = {
+    content: "Answer no 3 4",
+    result: true,
+    questionId: 4
 }
 
 exports.question1 = {

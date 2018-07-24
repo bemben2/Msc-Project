@@ -1,4 +1,3 @@
-
 var Sequelize = require('sequelize');
 var sequelize = require('../../config/db_connection').sequelize;
 var Answer = require('./answerModel');

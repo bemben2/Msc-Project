@@ -47,7 +47,7 @@ describe('[ *** US#8.1 Create answer *** ]', () => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
-                    Question.sync({ force: true }).then(() => {
+                    Answer.sync({ force: true }).then(() => {
                         request(app)
                             .post('/api/answers')
                             .send(testData.answer1)
@@ -72,7 +72,7 @@ describe('[ *** US#8.1 Create answer *** ]', () => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
-                    Question.sync({ force: true }).then(() => {
+                    Answer.sync({ force: true }).then(() => {
                         delete testData.answer1.content
                         request(app)
                             .post('/api/answers')
