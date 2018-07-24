@@ -4,13 +4,16 @@ var sequelize = require('../../config/db_connection').sequelize;
 
 var Question = sequelize.define('question', {
     title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     body: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     quizId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 
 });

@@ -7,22 +7,28 @@ var Question = require('../question/questionModel').Question;
 
 var Quiz = sequelize.define('quiz', {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   category: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   duration: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   authorId: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   active: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    allowNull: false
   },
   level: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 

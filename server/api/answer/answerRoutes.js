@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var controller = require('./answerController');
+var auth = require('../auth/auth');
 
 // midlleware for parametized url 
 // if rout has id parameter will be served by this before go to 
@@ -8,7 +9,7 @@ var controller = require('./answerController');
 
 router.route('/')
   .get(controller.get)
-  .post(controller.post);
+  .post(auth.decodeToken(), controller.post); //tested
 
 router.route('/question/:questionId')
   .get(controller.getForQuestion);

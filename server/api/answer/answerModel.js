@@ -3,13 +3,16 @@ var sequelize = require('../../config/db_connection').sequelize;
 
 var Answer = sequelize.define('answer', {
     content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     result: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     },
     questionId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 
 });

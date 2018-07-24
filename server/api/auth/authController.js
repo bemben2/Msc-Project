@@ -9,10 +9,10 @@ exports.signin = (req, res, next) => {
 
 exports.signup = (req, res, next) => {
     //console.log(req.body);
-    if (!req.body.email || !req.body.name || !req.body.password || !req.body.master ) {
-        next(new Error("All fields required to create user"));
-        return;
-    }
+    // if (!req.body.email || !req.body.name || !req.body.password || !req.body.master ) {
+    //     next(new Error("All fields required to create user"));
+    //     return;
+    // }
     User.create(req.body).then((user) => {
         var user = user.dataValues;
         user.token = signToken(user.id);

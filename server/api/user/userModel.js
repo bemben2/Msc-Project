@@ -4,8 +4,8 @@ var sequelize = require('../../config/db_connection').sequelize;
 
 const User = sequelize.define('user', {
 	name: {
-        type: Sequelize.STRING,
-        allowNull: false,
+		type: Sequelize.STRING,
+		allowNull: false,
 	},
 	email: {
 		type: Sequelize.STRING,
@@ -13,8 +13,8 @@ const User = sequelize.define('user', {
 		unique: true
 	},
 	password: {
-        type: Sequelize.STRING,
-        allowNull: false,
+		type: Sequelize.STRING,
+		allowNull: false,
 	},
 	master: {
 		type: Sequelize.BOOLEAN

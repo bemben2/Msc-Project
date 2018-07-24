@@ -41,10 +41,19 @@ exports.user1 = {
     master: true,
     password: "123"
 };
+
+exports.user3 = {
+    name: 'Michal Smigiel',
+    email: 'michals@gmail.com',
+    master: true,
+    password: "123"
+};
+
 exports.user2 = {
-    name: 'Tom Jinx',
-    email: 'tj@gmail.com',
-    master: false,
+    name: 'Michal Smigiel',
+    email: 'michals@gmail.com',
+    master: true,
+    password: "123"
 };
 
 exports.quiz1 = {
@@ -52,7 +61,7 @@ exports.quiz1 = {
     category: "Quiz category",
     duration: 90,
     authorId: 1,
-    active: true,
+    active: false,
     level: "pro"
 };
 

@@ -7,9 +7,9 @@ var User = require('../server/api/user/userModel');
 var Quiz = require('../server/api/quiz/quizModel');
 var testData = require('./testdata');
 
-describe('[ *** US#2 Quiz Master login *** ]', () => {
+describe('[ *** US#10 User login *** ]', () => {
 
-    describe('@@@ SCENARIO 1 – All Quiz Master data entered correctly @@@', () => {
+    describe('@@@ SCENARIO 1 – All User data entered correctly @@@', () => {
 
         it('should get back user object with attached token and id', (done) => {
 

@@ -7,9 +7,9 @@ var User = require('../server/api/user/userModel');
 var Quiz = require('../server/api/quiz/quizModel');
 var testData = require('./testdata');
 
-describe('[ *** US#1 Quiz master creates an acount *** ]', () => {
+describe('[ *** US#1 User creates an acount *** ]', () => {
 
-    describe('@@@ SCENARIO 1 – All Quiz Master data entered correctly @@@', () => {
+    describe('@@@ SCENARIO 1 – All data entered correctly @@@', () => {
 
         it('should get back user object with attached token and id', (done) => {
 
@@ -73,8 +73,10 @@ describe('[ *** US#1 Quiz master creates an acount *** ]', () => {
                             done();
                         });
                 });
+           
             });
         });
     });
+
 });
 
