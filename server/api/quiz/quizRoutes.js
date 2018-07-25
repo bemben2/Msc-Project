@@ -13,7 +13,7 @@ router.route('/')
 
 router.route('/:id')
 	.put(auth.decodeToken(), controller.put) //tested
-	.get(controller.getOne)
+	.get(auth.decodeToken(), controller.getOne) //tested
 	.delete(auth.decodeToken(), controller.delete); //tested
 
 router.route('/user/:userId')

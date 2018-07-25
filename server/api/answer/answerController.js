@@ -1,7 +1,7 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../../config/db_connection').sequelize;
-var Answer = require('./answerModel');
-var Question = require('../question/questionModel');
+const Sequelize = require('sequelize');
+const sequelize = require('../../config/db_connection').sequelize;
+const Answer = require('./answerModel');
+const Question = require('../question/questionModel');
 
 // exports.params = function (req, res, next, id) {
 //     Answer.findById(id).then(answer => {
@@ -26,17 +26,14 @@ exports.get = function (req, res, next) {
     });
 
 };
-
-exports.delete = function (req, res, next) {
-    Answer.findById(req.params.id).then((answer) => {
-        if (answer) {
-            return answer.destroy();
+exports.delete = (req, res, next) => {
+    Answer.destroy({
+        where: {
+            id: req.params.id
         }
-
     }).then(() => {
-        // console.log(no);
-        res.status(204).json();
-    }).catch((err) => {
+        res.status(200).json("answer deleted");
+    }).catch(err => {
         next(err);
     });
 };
@@ -69,5 +66,19 @@ exports.getOne = function (req, res, next) {
 };
 
 exports.put = function (req, res, next) {
-    res.json({ 'quiz': 'PUT respond' });
+    Answer.findById(req.params.id).then(answer => {
+        if (!answer) {
+            next(new Error("question not found"));
+        } else {
+            answer.update({
+                content: req.body.content,
+                result: req.body.result,
+                questionId: req.body.questionId,
+            }).then(answer => {
+                res.status(200).json(answer);
+            });
+        }
+    }).catch(err => {
+        next(err);
+    });
 };

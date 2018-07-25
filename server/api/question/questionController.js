@@ -25,6 +25,18 @@ exports.params = function (req, res, next, id) {
 
 // };
 
+exports.delete = (req, res, next) => {
+    Quiz.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(() => {
+        res.status(200).json("question deleted");
+    }).catch(err => {
+        next(err);
+    });
+};
+
 exports.post = function (req, res, next) {
     Question.create(req.body).then((questions) => {
         res.json(questions);
@@ -73,18 +85,5 @@ exports.put = function (req, res, next) {
     }).catch(err => {
         next(err);
     });
-
-
-    // Question.findById(req.params.id).then((question) => {
-    //     return question.update({
-    //         title: req.body.title,
-    //         body: req.body.body
-    //     }).then((question) => {
-    //         res.json(question);
-    //     }).catch(err => {
-    //         next(err);
-    //     });
-    // }).catch(err => {
-    //     next(err);
-    // });
 };
+

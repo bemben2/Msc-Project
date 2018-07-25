@@ -2,6 +2,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/db_connection').sequelize;
 const Quiz = require('./quizModel');
+const Question = require('../question/questionModel');
 const User = require('../user/userModel');
 const _ = require('lodash');
 
@@ -51,7 +52,24 @@ exports.post = (req, res, next) => {
 };
 
 exports.getOne = (req, res, next) => {
-    res.json(req.quiz);
+    Quiz.findOne({
+        where :{
+            id: req.params.id
+        }
+    }).then(quiz => {
+        Question.findAll({
+            where: {
+                quizId: quiz.id
+            }
+        }).then(questions => {
+            quiz.dataValues.questionNo = questions.length;
+            // console.log("questions.length", questions.length);
+            // console.log("quiz", quiz);
+            res.json(quiz);
+        })
+    }).catch((err) => {
+        next(err);
+    });
 };
 
 exports.put = (req, res, next) => {

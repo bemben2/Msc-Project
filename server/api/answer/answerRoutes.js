@@ -16,7 +16,7 @@ router.route('/question/:questionId')
 
 router.route('/:id')
   .get(controller.getOne)
-  .put(controller.put)
-  .delete(controller.delete);
+  .put(auth.decodeToken(), controller.put) //tested
+  .delete(auth.decodeToken(),controller.delete); //tested
 
 module.exports = router;
