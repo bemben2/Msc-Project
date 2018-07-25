@@ -9,8 +9,8 @@ router.route('/check')
 // router.route('/question/:questionId')
 //   .get(controller.getForQuestion);
 
-// router.route('/:id')
-//   .get(controller.getOne)
+ router.route('/user/:id')
+   .get(auth.decodeToken(), controller.getForUser);
 //   .put(controller.put)
 //   .delete(controller.delete);
 

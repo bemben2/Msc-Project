@@ -10,11 +10,11 @@ const Answer = require('../server/api/answer/answerModel');
 const testData = require('./testdata');
 const Result = require('../server/api/result/resultModel');
 
-describe('[ *** US#14 Quiz result *** ]', () => {
+describe('[ *** US#14 Quiz result history *** ]', () => {
 
-    describe('@@@ SCENARIO  1 – User correctly sent answer to the server @@@', () => {
+    describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
 
-        it('should get back corrected results ', (done) => {
+        it('should get back results object with attached id and finishing time ', (done) => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
@@ -39,24 +39,19 @@ describe('[ *** US#14 Quiz result *** ]', () => {
                                                                                             request(app).post('/api/answers').send(testData.answer11).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
                                                                                                 request(app).post('/api/answers').send(testData.answer12).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
                                                                                                     Result.sync({ force: true }).then(() => {
-                                                                                                        request(app)
-                                                                                                            .post('/api/results/check ')
-                                                                                                            .send(testData.resultsToCheck)
+                                                                                                        request(app).post('/api/results/check ').send(testData.resultsToCheck).set('Accept', 'application/json').set('Authorization', `Bearer ${token}`).expect('Content-Type', /json/).expect(200).end((err, res) => {
+                                                                                                            request(app)
+                                                                                                            .get('/api/results/user/1 ')
                                                                                                             .set('Accept', 'application/json')
                                                                                                             .set('Authorization', `Bearer ${token}`)
                                                                                                             .expect('Content-Type', /json/)
                                                                                                             .expect(200)
                                                                                                             .end((err, res) => {
                                                                                                                 //console.log(res.body);
-                                                                                                                chaiExpect(res.body).have.property("id");
-                                                                                                                chaiExpect(res.body).have.property("userId");
-                                                                                                                chaiExpect(res.body).have.property("quizId");
-                                                                                                                chaiExpect(res.body).have.property("finishedAt");
-                                                                                                                chaiExpect(res.body).have.property("answers");
-                                                                                                                chaiExpect(res.body.answers).to.be.an('array');
-                                                                                                                chaiExpect(res.body.answers).to.be.an('array').of.length(12);
+                                                                                                                chaiExpect(res.body).to.be.an('array').of.length(1);
                                                                                                                 done();
                                                                                                             });
+                                                                                                        });
                                                                                                     });
                                                                                                 });
                                                                                             });
@@ -83,9 +78,9 @@ describe('[ *** US#14 Quiz result *** ]', () => {
         });
     });
 
-    describe('@@@ SCENARIO 2 – If user is not logged in @@@', () => {
+    describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
 
-        it('should gets back an error message ', (done) => {
+        it('should get back results object with attached id and finishing time ', (done) => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
@@ -110,17 +105,19 @@ describe('[ *** US#14 Quiz result *** ]', () => {
                                                                                             request(app).post('/api/answers').send(testData.answer11).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
                                                                                                 request(app).post('/api/answers').send(testData.answer12).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
                                                                                                     Result.sync({ force: true }).then(() => {
-                                                                                                        request(app)
-                                                                                                            .post('/api/results/check ')
-                                                                                                            .send(testData.resultsToCheck)
+                                                                                                        request(app).post('/api/results/check ').send(testData.resultsToCheck).set('Accept', 'application/json').set('Authorization', `Bearer ${token}`).expect('Content-Type', /json/).expect(200).end((err, res) => {
+                                                                                                            request(app)
+                                                                                                            .get('/api/results/user/1 ')
                                                                                                             .set('Accept', 'application/json')
                                                                                                             //.set('Authorization', `Bearer ${token}`)
                                                                                                             .expect('Content-Type', /json/)
                                                                                                             .expect(200)
                                                                                                             .end((err, res) => {
+                                                                                                                //console.log(res.body);
                                                                                                                 chaiExpect(res.body).to.be.deep.equal("No authorization token was found");
                                                                                                                 done();
                                                                                                             });
+                                                                                                        });
                                                                                                     });
                                                                                                 });
                                                                                             });
@@ -146,28 +143,4 @@ describe('[ *** US#14 Quiz result *** ]', () => {
             });
         });
     });
-
-    // describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
-
-    //     it('should get back user object with attached token and id', (done) => {
-
-    //         request(app)
-    //             .post('/api/results/check ')
-    //             .send(testData.resultsToCheck)
-    //             .set('Accept', 'application/json')
-    //             //.set('Authorization', `Bearer ${token}`)
-    //             .expect('Content-Type', /json/)
-    //             .expect(200)
-    //             .end((err, res) => {
-    //                 console.log(res.body);
-    //                 chaiExpect(res.body).have.property("id");
-    //                 chaiExpect(res.body).have.property("finishedAt");
-    //                 chaiExpect(res.body).have.property("quizId");
-    //                 chaiExpect(res.body).have.property("quserId");
-    //                 chaiExpect(res.body.results).to.be.an('array');
-    //                 chaiExpect(res.body.results).to.be.an('array').of.length(12);
-    //                 done();
-    //             });
-    //     });
-    // });
 });

@@ -2,13 +2,24 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../config/db_connection').sequelize;
 const Answer = require('../answer/answerModel');
 const Question = require('../question/questionModel');
-const Result = require('./resultModel'); 
+const Result = require('./resultModel');
 
 
-//let index = 0;
+exports.getForUser = (req, res, next) => {
+    Result.findAll({
+        where: {
+            userId: req.params.id
+        }
+    }).then(results => {
+        //console.log("results", results);
+        res.json(results);
+    }).catch(err => {
+        next(err);
+    })
+}
 
-exports.check = function (req, res, next) {
-    
+exports.check = (req, res, next) => {
+
     var correctAnswers = [];
     let result = req.body;
     let answers = result.answers;
@@ -26,10 +37,10 @@ exports.check = function (req, res, next) {
         //console.log("correctAnswers" + correctAnswers);
         result.answers = correctAnswers;
         result.finishedAt = new Date();
-        
-        Result.create(result).then((result)=>{
+
+        Result.create(result).then((result) => {
             res.json(result);
-        }).catch((err)=>{
+        }).catch((err) => {
             next(err);
         });
     });
