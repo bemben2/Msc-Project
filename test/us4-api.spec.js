@@ -1,13 +1,13 @@
-var app = require('../server/server');
-var request = require('supertest');
-var chaiExpect = require('chai').expect;
-var Sequelize = require('sequelize');
-var sequelize = require('../server/config/db_connection').sequelize;
-var User = require('../server/api/user/userModel');
-var Quiz = require('../server/api/quiz/quizModel');
-var testData = require('./testdata');
+const app = require('../server/server');
+const request = require('supertest');
+const chaiExpect = require('chai').expect;
+const Sequelize = require('sequelize');
+const sequelize = require('../server/config/db_connection').sequelize;
+const User = require('../server/api/user/userModel');
+const Quiz = require('../server/api/quiz/quizModel');
+const testData = require('./testdata');
 
-describe('[ *** US#4-7 Create quiz *** ]', () => {
+describe('[ *** US#4 Create quiz *** ]', () => {
 
     describe('@@@ SCENARIO 1 – All data entered correctly @@@', () => {
 
@@ -67,7 +67,8 @@ describe('[ *** US#4-7 Create quiz *** ]', () => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
                     Quiz.sync({ force: true }).then(() => {
-                        delete testData.quiz1.category;
+                        let testedQuiz = testData.quiz1;
+                        delete testedQuiz.category;
                         request(app)
                             .post('/api/quizzes')
                             .send(testData.quiz1)

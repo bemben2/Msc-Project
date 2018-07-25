@@ -1,6 +1,5 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../../config/db_connection').sequelize;
-var Question = require('../question/questionModel').Question;
+const Sequelize = require('sequelize');
+const sequelize = require('../../config/db_connection').sequelize;
 
 var Quiz = sequelize.define('quiz', {
   name: {
@@ -29,7 +28,6 @@ var Quiz = sequelize.define('quiz', {
   }
 });
 
-
 // //   force: true will drop the table if it already exists
 // Quiz.sync({ force: true }).then(() => {
 // Table created
@@ -39,5 +37,5 @@ var Quiz = sequelize.define('quiz', {
 //   authorId: 1
 // });
 
-
 module.exports = Quiz;
+

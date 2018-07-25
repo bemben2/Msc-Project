@@ -12,7 +12,7 @@ router.route('/')
 	.post(auth.decodeToken(),controller.post) //tested
 
 router.route('/:id')
-	.put(controller.put)
+	.put(auth.decodeToken(), controller.put) //tested
 	.get(controller.getOne);
 router.route('/quiz/:quizId')
 	.get(controller.getForQuiz);

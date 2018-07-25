@@ -60,15 +60,31 @@ exports.getForQuiz = function (req, res, next) {
 }
 exports.put = function (req, res, next) {
     Question.findById(req.params.id).then((question) => {
-        return question.update({
-            title: req.body.title,
-            body: req.body.body
-        }).then((question) => {
-            res.json(question);
-        }).catch(err => {
-            next(err);
-        });
+        if (!question) {
+            next(new Error("question not found"));
+        } else {
+            question.update({
+                title: req.body.title,
+                body: req.body.body
+            }).then((question) => {
+                res.status(200).json(question);
+            });
+        }
     }).catch(err => {
         next(err);
     });
+
+
+    // Question.findById(req.params.id).then((question) => {
+    //     return question.update({
+    //         title: req.body.title,
+    //         body: req.body.body
+    //     }).then((question) => {
+    //         res.json(question);
+    //     }).catch(err => {
+    //         next(err);
+    //     });
+    // }).catch(err => {
+    //     next(err);
+    // });
 };

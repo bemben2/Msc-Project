@@ -46,7 +46,7 @@ describe('[ *** US#14 Quiz result *** ]', () => {
                                                                                                             .expect('Content-Type', /json/)
                                                                                                             .expect(200)
                                                                                                             .end((err, res) => {
-                                                                                                                console.log(res.body);
+                                                                                                                //console.log(res.body);
                                                                                                                 chaiExpect(res.body).have.property("id");
                                                                                                                 chaiExpect(res.body).have.property("userId");
                                                                                                                 chaiExpect(res.body).have.property("quizId");
