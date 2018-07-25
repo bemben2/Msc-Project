@@ -1,8 +1,7 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../../config/db_connection').sequelize;
-var Question = require('../question/questionModel').Question;
+const Sequelize = require('sequelize');
+const sequelize = require('../../config/db_connection').sequelize;
 
-var Result = sequelize.define('quiz', {
+let Result = sequelize.define('result', {
     userId: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -15,6 +14,10 @@ var Result = sequelize.define('quiz', {
     answers: {
         type: Sequelize.JSON,
         allowNull:false
+    },
+    finishedAt: {
+        type: Sequelize.DATE,
+        allowNull: false
     }
 });
 

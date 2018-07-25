@@ -1,6 +1,6 @@
-var router = require('express').Router();
-var controller = require('./quizController');
-var auth = require('../auth/auth');
+const router = require('express').Router();
+const controller = require('./quizController');
+const auth = require('../auth/auth');
 // midlleware for parametized url 
 // if rout has id parameter will be served by this before go to 
 // the proper contoller function

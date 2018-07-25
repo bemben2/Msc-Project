@@ -14,7 +14,6 @@ var Answer = sequelize.define('answer', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-
 });
 
 

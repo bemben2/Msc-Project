@@ -1,10 +1,10 @@
-var router = require('express').Router();
-var controller = require('./resultController');
-var auth = require('../auth/auth');
+const router = require('express').Router();
+const controller = require('./resultController');
+const auth = require('../auth/auth');
 
 
 router.route('/check')
-  .post(controller.check);
+  .post(auth.decodeToken(), controller.check);
 
 // router.route('/question/:questionId')
 //   .get(controller.getForQuestion);
