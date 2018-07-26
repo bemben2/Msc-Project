@@ -18,14 +18,14 @@ const Question = require('../question/questionModel');
 
 
 
-exports.get = function (req, res, next) {
-    Answer.findAll().then(answers => {
-        res.json(answers);
-    }).catch((err) => {
-        next(err);
-    });
+// exports.get = function (req, res, next) {
+//     Answer.findAll().then(answers => {
+//         res.json(answers);
+//     }).catch((err) => {
+//         next(err);
+//     });
 
-};
+// };
 exports.delete = (req, res, next) => {
     Answer.destroy({
         where: {
@@ -47,7 +47,7 @@ exports.post = function (req, res, next) {
 };
 
 exports.getForQuestion = function (req, res, next) {
-    Question.findById(req.params.questionId).then((question) => {
+    Question.findById(req.params.id).then((question) => {
         return Answer.findAll({
             where: {
                 questionId: question.id
@@ -61,9 +61,9 @@ exports.getForQuestion = function (req, res, next) {
     });
 };
 
-exports.getOne = function (req, res, next) {
-    res.json(req.question);
-};
+// exports.getOne = function (req, res, next) {
+//     res.json(req.question);
+// };
 
 exports.put = function (req, res, next) {
     Answer.findById(req.params.id).then(answer => {

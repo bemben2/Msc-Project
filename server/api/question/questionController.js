@@ -1,29 +1,8 @@
 
-var Sequelize = require('sequelize');
-var sequelize = require('../../config/db_connection').sequelize;
-var Question = require('./questionModel');
-var Quiz = require('../quiz/quizModel');
-exports.params = function (req, res, next, id) {
-    Question.findById(id).then(question => {
-        if (question) {
-            req.question = question;
-            next();
-        } else {
-            next(new Error('failed to load question'));
-        }
-    }).catch(err => {
-        next(err);
-    });
-};
-
-// exports.get = function (req, res, next) {
-//     Question.findAll().then(questions => {
-//         res.json(questions);
-//     }).catch((err) => {
-//         next(err);
-//     });
-
-// };
+const Sequelize = require('sequelize');
+const sequelize = require('../../config/db_connection').sequelize;
+const Question = require('./questionModel');
+const Quiz = require('../quiz/quizModel');
 
 exports.delete = (req, res, next) => {
     Quiz.destroy({
@@ -45,19 +24,8 @@ exports.post = function (req, res, next) {
     });
 };
 
-exports.getOne = function (req, res, next) {
-    Question.findById(req.params.id).then(question => {
-        if (question) {
-            res.json(question);
-        } else {
-            next(new Error('failed to load question'));
-        }
-    }).catch(err => {
-        next(err);
-    });
-};
 exports.getForQuiz = function (req, res, next) {
-    Quiz.findById(req.params.quizId).then((quiz) => {
+    Quiz.findById(req.params.id).then((quiz) => {
         Question.findAll({
             where: {
                 quizId: quiz.id
@@ -68,8 +36,11 @@ exports.getForQuiz = function (req, res, next) {
         }).catch((err) => {
             next(err);
         });
+    }).catch((err) => {
+        next(err);
     });
 }
+
 exports.put = function (req, res, next) {
     Question.findById(req.params.id).then((question) => {
         if (!question) {
@@ -86,4 +57,3 @@ exports.put = function (req, res, next) {
         next(err);
     });
 };
-

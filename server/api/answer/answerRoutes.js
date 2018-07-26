@@ -8,14 +8,14 @@ var auth = require('../auth/auth');
 //router.param('id', controller.params);
 
 router.route('/')
-  .get(controller.get)
+  //.get(controller.get)
   .post(auth.decodeToken(), controller.post); //tested
 
-router.route('/question/:questionId')
-  .get(controller.getForQuestion);
+router.route('/question/:id')
+  .get(auth.decodeToken(), controller.getForQuestion); //tested
 
 router.route('/:id')
-  .get(controller.getOne)
+  //.get(controller.getOne)
   .put(auth.decodeToken(), controller.put) //tested
   .delete(auth.decodeToken(),controller.delete); //tested
 

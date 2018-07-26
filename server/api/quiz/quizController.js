@@ -27,22 +27,6 @@ exports.delete = (req, res, next) => {
     });
 };
 
-exports.getForUser = (req, res, next) => {
-
-    User.findById(req.params.userId).then(user => {
-        Quiz.findAll({
-            where: {
-                authorId: req.params.userId
-            }
-        }).then(quizzies => {
-            // console.log('JOJOJOJ');
-            // console.log((quizzies));
-            res.set('Content-Type', 'application/json');
-            res.json(quizzies);
-        });
-    });
-};
-
 exports.post = (req, res, next) => {
     Quiz.create(req.body).then(quiz => {
         res.json(quiz);
