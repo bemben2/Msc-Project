@@ -29,7 +29,7 @@ describe('[ *** US#4.1 Update quiz *** ]', () => {
                                 .expect(200)
                                 .end((err, res) => {
                                     //  chaiExpect(res.status).to.be.equal(200);
-                                    console.log(res.body);
+                                   // console.log(res.body);
                                     chaiExpect(res.body).have.property("category");
                                     chaiExpect(res.body.category).to.be.deep.equal("Brand new category");
                                     done();

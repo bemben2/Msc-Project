@@ -6,20 +6,25 @@ let Result = sequelize.define('result', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-
     quizId: {
         type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    finishedAt: {
+        type: Sequelize.DATE,
         allowNull: false
     },
     answers: {
         type: Sequelize.JSON,
         allowNull:false
     },
-    finishedAt: {
-        type: Sequelize.DATE,
+    questionNo: {
+        type: Sequelize.INTEGER,
         allowNull: false
+    },
+    userName : {
+        type: Sequelize.STRING
     }
 });
-
 
 module.exports = Result;

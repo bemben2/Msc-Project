@@ -27,7 +27,7 @@ describe('[ *** US#8.7 List of answers for given question *** ]', () => {
                                         .expect('Contect-Type', /json/)
                                         .expect(200)
                                         .end((err, res) => {
-                                            console.log(res.body);
+                                          //  console.log(res.body);
                                             chaiExpect(res.body).to.be.an('array').of.length(3);
                                             // chaiExpect(res.body).have.property("id");
                                             // chaiExpect(res.body).have.property("result");
@@ -62,7 +62,7 @@ describe('[ *** US#8.7 List of answers for given question *** ]', () => {
                                         .expect('Contect-Type', /json/)
                                         .expect(200)
                                         .end((err, res) => {
-                                            console.log(res.body);
+                                           // console.log(res.body);
                                             chaiExpect(res.body).to.be.deep.equal("No authorization token was found");
                                             done();
                                         });

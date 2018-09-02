@@ -5,7 +5,7 @@ const Question = require('./questionModel');
 const Quiz = require('../quiz/quizModel');
 
 exports.delete = (req, res, next) => {
-    Quiz.destroy({
+    Question.destroy({
         where: {
             id: req.params.id
         }
@@ -25,20 +25,26 @@ exports.post = function (req, res, next) {
 };
 
 exports.getForQuiz = function (req, res, next) {
-    Quiz.findById(req.params.id).then((quiz) => {
-        Question.findAll({
-            where: {
-                quizId: quiz.id
-            }
-        }).then((questions) => {
-            res.set('Content-Type', 'application/json');
-            res.json(questions);
-        }).catch((err) => {
+    Quiz.findById(req.params.id)
+        .then(quiz => {
+
+            Question.findAll({
+                where: {
+                    quizId: quiz.id
+                }
+            })
+                .then((questions) => {
+                    res.set('Content-Type', 'application/json');
+                    res.json(questions);
+                })
+                .catch((err) => {
+                    next(err);
+                });
+        })
+        
+        .catch(err => {
             next(err);
         });
-    }).catch((err) => {
-        next(err);
-    });
 }
 
 exports.put = function (req, res, next) {

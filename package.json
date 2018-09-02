@@ -19,6 +19,7 @@
   "homepage": "https://github.com/bemben2/Msc-Project#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.3.0",

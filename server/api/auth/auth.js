@@ -18,7 +18,7 @@ exports.verifyUser = function () {
     return function (req, res, next) {
         var email = req.body.email;
         var password = req.body.password;
-
+        //console.log(email + password);
         if (!email || !password) {
             next(new Error("no login or password"));
         }
