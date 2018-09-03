@@ -8,11 +8,11 @@ var Quiz = require('../server/api/quiz/quizModel');
 var Question = require('../server/api/question/questionModel');
 var testData = require('./testdata');
 
-describe('[ *** US#11 Details of selected quiz *** ]', () => {
+describe('[ *** US#19 Details of selected quiz *** ]', () => {
 
     describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
 
-        it('should get back quiz object with attached atributes duration and number questions', (done) => {
+        it('should get back quiz object with attached attributes duration and number questions', (done) => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
@@ -50,7 +50,7 @@ describe('[ *** US#11 Details of selected quiz *** ]', () => {
     
     describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
 
-        it('should get back quiz object with attached atributes duration and number questions', (done) => {
+        it('should get back quiz object with attached attributes duration and number questions', (done) => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;

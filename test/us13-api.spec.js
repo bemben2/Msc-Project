@@ -7,7 +7,7 @@ const User = require('../server/api/user/userModel');
 const Answer = require('../server/api/answer/answerModel');
 const testData = require('./testdata');
 
-describe('[ *** US#8.1 Update answer *** ]', () => {
+describe('[ *** US#13 Update answer *** ]', () => {
 
     describe('@@@ SCENARIO 1 – All data entered correctly @@@', () => {
 

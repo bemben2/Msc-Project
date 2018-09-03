@@ -10,7 +10,7 @@ const Answer = require('../server/api/answer/answerModel');
 const testData = require('./testdata');
 const Result = require('../server/api/result/resultModel');
 
-describe('[ *** US#14 Quiz result history *** ]', () => {
+describe('[ *** US#23 Quiz result history for selected user *** ]', () => {
 
     describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
 
@@ -47,7 +47,7 @@ describe('[ *** US#14 Quiz result history *** ]', () => {
                                                                                                             .expect('Content-Type', /json/)
                                                                                                             .expect(200)
                                                                                                             .end((err, res) => {
-                                                                                                                //console.log(res.body);
+                                                                                                               // console.log(res.body);
                                                                                                                 chaiExpect(res.body).to.be.an('array').of.length(1);
                                                                                                                 done();
                                                                                                             });
@@ -80,7 +80,7 @@ describe('[ *** US#14 Quiz result history *** ]', () => {
 
     describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
 
-        it('should get back results object with attached id and finishing time ', (done) => {
+        it('should get back error ', (done) => {
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;

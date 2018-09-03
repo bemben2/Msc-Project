@@ -5,71 +5,90 @@ var Sequelize = require('sequelize');
 var sequelize = require('../server/config/db_connection').sequelize;
 var User = require('../server/api/user/userModel');
 var Quiz = require('../server/api/quiz/quizModel');
+var Question = require('../server/api/question/questionModel');
+var Answer = require('../server/api/answer/answerModel');
 var testData = require('./testdata');
 
-describe('[ *** US#11 List of available quizzes *** ]', () => {
 
-    describe('@@@ SCENARIO 1 – User request quizzes list @@@', () => {
+describe('[ *** US#11 Create answer *** ]', () => {
 
-        it('should get back user object with attached token and id', (done) => {
+    describe('@@@ SCENARIO 1 – All data entered correctly @@@', () => {
+
+        it('gets back answer object with attached id', (done) => {
+
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
-
-                    Quiz.sync({ force: true }).then(() => {
-                        request(app).post('/api/quizzes').send(testData.quiz1).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
-                            request(app).post('/api/quizzes').send(testData.quiz2).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
-                                request(app).post('/api/quizzes').send(testData.quiz3).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
-                                    
-                                    request(app)
-                                        .get('/api/quizzes')
-                                        .set('Accept', 'application/json')
-                                        .set('Authorization', `Bearer ${token}`)
-                                        .expect('Content-Type', /json/)
-                                        .expect(200)
-                                        .end((err, res) => {
-                                            chaiExpect(res.body).to.be.an('array');
-                                            chaiExpect(res.body).to.be.an('array').of.length(3);
-                                            done();
-                                        });
-                                });
+                    Answer.sync({ force: true }).then(() => {
+                        request(app)
+                            .post('/api/answers')
+                            .send(testData.answer1)
+                            .set('Accept', 'application/json')
+                            .set('Authorization', `Bearer ${token}`)
+                            .expect('Contect-Type', /json/)
+                            .expect(200)
+                            .end((err, res) => {
+                                chaiExpect(res.body).have.property("id");
+                                chaiExpect(res.body).have.property("result");
+                                chaiExpect(res.body).have.property("questionId");
+                                done();
                             });
-                        });
                     });
                 });
             });
         });
     });
+
 
     describe('@@@ SCENARIO 2 – If user is not logged in @@@', () => {
 
-        it('should get back user object with attached token and id', (done) => {
+        it('gets back an error message', (done) => {
 
             User.sync({ force: true }).then(() => {
                 request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
                     var token = res.body.token;
-
-                    Quiz.sync({ force: true }).then(() => {
-                        request(app).post('/api/quizzes').send(testData.quiz1).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
-                            request(app).post('/api/quizzes').send(testData.quiz2).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
-                                request(app).post('/api/quizzes').send(testData.quiz3).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect(200).end(() => {
-                                    
-                                    request(app)
-                                        .get('/api/quizzes')
-                                        .set('Accept', 'application/json')
-                                        //.set('Authorization', `Bearer ${token}`)
-                                        .expect('Content-Type', /json/)
-                                        .expect(200)
-                                        .end((err, res) => {
-                                            chaiExpect(res.body).to.be.deep.equal("No authorization token was found");
-                                            done();
-                                        });
-                                });
+                    Answer.sync({ force: true }).then(() => {
+                        request(app)
+                            .post('/api/answers')
+                            .send(testData.answer1)
+                            .set('Accept', 'application/json')
+                            //.set('Authorization', `Bearer ${token}`)
+                            .expect('Contect-Type', /json/)
+                            .expect(200)
+                            .end((err, res) => {
+                                chaiExpect(res.body).to.be.deep.equal("No authorization token was found");
+                                done();
                             });
-                        });
                     });
                 });
             });
         });
     });
+
+    describe('@@@ SCENARIO 3 – If one of the field is empty @@@', () => {
+
+        it('gets back an error message', (done) => {
+
+            User.sync({ force: true }).then(() => {
+                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
+                    var token = res.body.token;
+                    Answer.sync({ force: true }).then(() => {
+                        delete testData.answer1.content
+                        request(app)
+                            .post('/api/answers')
+                            .send(testData.answer1)
+                            .set('Accept', 'application/json')
+                            .set('Authorization', `Bearer ${token}`)
+                            .expect('Contect-Type', /json/)
+                            .expect(200)
+                            .end((err, res) => {
+                                chaiExpect(res.body).to.be.deep.equal("notNull Violation: answer.content cannot be null");
+                                done();
+                            });
+                    });
+                });
+            });
+        });
+    });
+
 });

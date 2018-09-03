@@ -18,7 +18,7 @@ var sequelize = require('./config/db_connection').sequelize;
 //     console.error('Unable to connect to the database:', err);
 //   });
 
-app.use(morgan("dev"));
+//app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -34,11 +34,9 @@ app.use('/api', api);
 
 //errors handling
 app.use(function (err, req, res, next) {
-     console.log('ERROR message from SERVER.JS: ', err.message);
-     console.log('ERROR stack from SERVER.JS: ', err.stack);
+    //  console.log('ERROR message from SERVER.JS: ', err.message);
+    //  console.log('ERROR stack from SERVER.JS: ', err.stack);
     res.status(500).json(err.message);
 });
-
-
 
 module.exports = app;

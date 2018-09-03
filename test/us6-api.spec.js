@@ -7,7 +7,7 @@ const User = require('../server/api/user/userModel');
 const Quiz = require('../server/api/quiz/quizModel');
 const testData = require('./testdata');
 
-describe('[ *** US#4.1 Delete quiz *** ]', () => {
+describe('[ *** US#6 Delete quiz *** ]', () => {
 
     describe('@@@ SCENARIO 1 – All data entered correctly @@@', () => {
 

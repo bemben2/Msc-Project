@@ -1,112 +1,66 @@
-var app = require('../server/server');
-var request = require('supertest');
-var chaiExpect = require('chai').expect;
-var Sequelize = require('sequelize');
-var sequelize = require('../server/config/db_connection').sequelize;
-var User = require('../server/api/user/userModel');
-var Quiz = require('../server/api/quiz/quizModel');
-var testData = require('./testdata');
+const app = require('../server/server');
+const request = require('supertest');
+const chaiExpect = require('chai').expect;
+// const Sequelize = require('sequelize');
+// const sequelize = require('../server/config/db_connection').sequelize;
+const User = require('../server/api/user/userModel');
+const Question = require('../server/api/question/questionModel');
+const testData = require('./testdata');
 
-describe('[ *** US#10 User login *** ]', () => {
+describe('[ *** US#10 Delete question *** ]', () => {
 
-    describe('@@@ SCENARIO 1 – All User data entered correctly @@@', () => {
+    describe('@@@ SCENARIO 1 – All data entered correctly @@@', () => {
 
-        it('should get back user object with attached token and id', (done) => {
+        it('gets back confirmation message', (done) => {
 
             User.sync({ force: true }).then(() => {
-                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end(() => {
-                    request(app)
-                        .post('/api/auth/signin')
-                        .send({
-                            "email": "ms@gmail.com",
-                            "password": "123"
-                        })
-                        .set('Accept', 'application/json')
-                        .expect('Contect-Type', /json/)
-                        .expect(200)
-                        .end(function (err, res) {
-                            chaiExpect(res.body).to.be.an('object');
-                            chaiExpect(res.body).have.property("id");
-                            chaiExpect(res.body).have.property("token");
-                            chaiExpect(res.body.name).to.be.deep.equal(testData.user1.name);
-                            chaiExpect(res.body.email).to.be.deep.equal(testData.user1.email);
-                            chaiExpect(res.body.master).to.be.deep.equal(testData.user1.master);
-                            chaiExpect(res.body.password).to.be.deep.equal(testData.user1.password);
-                            done();
+                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
+                    var token = res.body.token;
+                    Question.sync({ force: true }).then(() => {
+                        request(app).post('/api/questions').send(testData.question1).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
+                            let questionToDelete = res.body;
+                            request(app)
+                                .delete(`/api/questions/${questionToDelete.id}`)
+                                .send(questionToDelete)
+                                .set('Authorization', `Bearer ${token}`)
+                                .set('Accept', 'application/json')
+                                .expect('Contect-Type', /json/)
+                                .expect(200)
+                                .end((err, res) => {
+                                    // console.log(res.body);
+                                    chaiExpect(res.body).to.be.deep.equal("question deleted");
+                                    done();
+                                });
                         });
+                    });
                 });
             });
         });
     });
-
-    describe('@@@ SCENARIO 2 – If one of the field is empty @@@', () => {
-
-        it('should get back an error message', (done) => {
-
+    describe('@@@ SCENARIO 2 – If user is not logged in @@@', () => {
+        it('gets back an error message', (done) => {
             User.sync({ force: true }).then(() => {
-                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end(() => {
-                    request(app)
-                        .post('/api/auth/signin')
-                        .send({
-                            "password": "123"
-                        })
-                        .set('Accept', 'application/json')
-                        .expect('Contect-Type', /json/)
-                        .expect(200)
-                        .end(function (err, res) {
-                            chaiExpect(res.body).to.be.deep.equal("no login or password");
-                            done();
+                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
+                    var token = res.body.token;
+                    Question.sync({ force: true }).then(() => {
+                        request(app).post('/api/questions').send(testData.question2).set('Authorization', `Bearer ${token}`).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end((err, res) => {
+                            let questionToDelete = res.body;
+                            request(app)
+                                .delete(`/api/questions/${questionToDelete.id}`)
+                                .send(questionToDelete)
+                                //.set('Authorization', `Bearer ${token}`)
+                                .set('Accept', 'application/json')
+                                .expect('Contect-Type', /json/)
+                                .expect(200)
+                                .end((err, res) => {
+                                    chaiExpect(res.body).to.be.deep.equal("No authorization token was found");
+                                    done();
+                                });
                         });
+                    });
                 });
             });
-        });
-    });
 
-    describe('@@@ SCENARIO 3 – If email address is not in the system @@@', () => {
-
-        it('should get back an error message', (done) => {
-
-            User.sync({ force: true }).then(() => {
-                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end(() => {
-                    request(app)
-                        .post('/api/auth/signin')
-                        .send({
-                            "email": "XXX@gmail.com",
-                            "password": "123"
-                        })
-                        .set('Accept', 'application/json')
-                        .expect('Contect-Type', /json/)
-                        .expect(200)
-                        .end(function (err, res) {
-                            chaiExpect(res.body).to.be.deep.equal("no user with this login");
-                            done();
-                        });
-                });
-            });
-        });
-    });
-
-    describe('@@@ SCENARIO 4 – If password is not correct @@@', () => {
-
-        it('should get back an error message', (done) => {
-
-            User.sync({ force: true }).then(() => {
-                request(app).post('/api/auth/signup').send(testData.user1).set('Accept', 'application/json').expect('Contect-Type', /json/).expect(200).end(() => {
-                    request(app)
-                        .post('/api/auth/signin')
-                        .send({
-                            "email": "ms@gmail.com",
-                            "password": "12"
-                        })
-                        .set('Accept', 'application/json')
-                        .expect('Contect-Type', /json/)
-                        .expect(200)
-                        .end(function (err, res) {
-                            chaiExpect(res.body).to.be.deep.equal("wrong password");
-                            done();
-                        });
-                });
-            });
         });
     });
 });

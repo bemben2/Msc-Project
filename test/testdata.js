@@ -1,21 +1,16 @@
-exports.resultsToCheck = {
-    "userId": 1,
-    "quizId": 1,
-    "answers":[
-        {"answerId": 1, "selected": true},
-        {"answerId": 2, "selected": false},
-        {"answerId": 3, "selected": false},
-        {"answerId": 4, "selected": false},
-        {"answerId": 5, "selected": true},
-        {"answerId": 6, "selected": false},
-        {"answerId": 7, "selected": true},
-        {"answerId": 8, "selected": false},
-        {"answerId": 9, "selected": false},
-        {"answerId": 10, "selected": true},
-        {"answerId": 11, "selected": true},
-        {"answerId": 12, "selected": false}
-    ]
-}
+exports.resultsToCheck = [
+    { "userId": 1 },
+    { "quizId": 1 },
+    { "finishedAt": "Mon Sep 03 2018 15:33:46 GMT+0100 (Irish Standard Time)" },
+    {
+        "answers": [
+            { "questionId": 1, "correct": false },
+            { "questionId": 2, "correct": false },
+            { "questionId": 3, "correct": false }
+        ]
+    },
+    { "questionNo": 3 },
+    { "userName": "" }]
 
 exports.answer1 = {
     content: "Answer no 1 1",
@@ -128,7 +123,14 @@ exports.quiz1 = {
     active: false,
     level: "pro"
 };
-
+exports.quiz4 = {
+    name: "First quiz",
+    category: "Quiz category",
+    duration: 90,
+    authorId: 1,
+    active: false,
+    level: "pro"
+};
 exports.quiz2 = {
     name: "Java quiz",
     category: "Quiz category",
