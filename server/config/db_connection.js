@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var Op = Sequelize.Op;
 var sequelize = new Sequelize(
-    'mscprojecttest',
+    'mscproject',
     'root',
     '',
     {
